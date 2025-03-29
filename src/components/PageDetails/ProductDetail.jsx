@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-const BookDetail = () => {
+const ProductDetail = () => {
   const { id } = useParams(); // Lấy ID từ URL
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -69,45 +69,45 @@ const BookDetail = () => {
       <Header />
       <div className='container mt-4'>
         <div className='row'>
-        {/*Sách */}
+          {/*Sách */}
           <div className='col-lg-3 col-md-6 mb-4 '>
             <div className='border p-3'>
               <div className='card-img-top'>
-              {book?.images && book.images.length > 0 && (
-              <img src={book.images[0]?.large_url} alt={book.name} className="img-fluid" />
-            )}
-            <div className='border d-flex '>
-              <img src={book?.images[0]?.small_url} alt={book.name} className=" img-fluid w-10" />
-              <img src={book?.images[0]?.small_url} alt={book.name} className=" img-fluid w-10 mx-1" />
-              <img src={book?.images[0]?.small_url} alt={book.name} className=" img-fluid w-10 mx-1" />
-              <img src={book?.images[0]?.small_url} alt={book.name} className=" img-fluid w-10 mx-1" />
-              <img src={book?.images[0]?.small_url} alt={book.name} className=" img-fluid w-10 mx-1" />
-            </div>
+                {book?.images && book.images.length > 0 && (
+                  <img src={book.images[0]?.large_url} alt={book.name} className="img-fluid" />
+                )}
+                <div className='border d-flex '>
+                  <img src={book?.images[0]?.small_url} alt={book.name} className=" img-fluid w-10" />
+                  <img src={book?.images[0]?.small_url} alt={book.name} className=" img-fluid w-10 mx-1" />
+                  <img src={book?.images[0]?.small_url} alt={book.name} className=" img-fluid w-10 mx-1" />
+                  <img src={book?.images[0]?.small_url} alt={book.name} className=" img-fluid w-10 mx-1" />
+                  <img src={book?.images[0]?.small_url} alt={book.name} className=" img-fluid w-10 mx-1" />
+                </div>
               </div>
               <div className='card-body'>
-              <h6>Đặc điểm nổi bật</h6>
-            <ul>
-              <li><p>Kích thước lớn và bìa cứng, tạo cảm giác sang trọng và bền bỉ.</p></li>
-              <li><p>Hình vẽ ngộ nghĩnh và màu sắc sống động, thu hút sự chú ý của trẻ em.</p></li>
-              <li><p>Cung cấp thông tin tổng quát về diện tích, dân số và ngôn ngữ của các quốc gia.</p></li>
-            </ul>
+                <h6>Đặc điểm nổi bật</h6>
+                <ul>
+                  <li><p>Kích thước lớn và bìa cứng, tạo cảm giác sang trọng và bền bỉ.</p></li>
+                  <li><p>Hình vẽ ngộ nghĩnh và màu sắc sống động, thu hút sự chú ý của trẻ em.</p></li>
+                  <li><p>Cung cấp thông tin tổng quát về diện tích, dân số và ngôn ngữ của các quốc gia.</p></li>
+                </ul>
               </div>
-            <div className='bg-light d-flex'>
-              <p className='text-secondary'>Xem thêm</p>
-              <p>Xem thêm nội dung sách</p>
-            </div>
+              <div className='bg-light d-flex'>
+                <p className='text-secondary'>Xem thêm</p>
+                <p>Xem thêm nội dung sách</p>
+              </div>
             </div>
           </div>
           {/* Chi tiết sản phẩm */}
           <div className='col-lg-5 col-md-12 mb-4 mx-2 h-100'>
             <div className='border p-3'>
               <div className='d-flex '>
-              <img
-                style={{ width: "80px", height: "20px" }}
-                src="https://salt.tikicdn.com/ts/upload/d7/56/04/b93b8c666e13f49971483596ef14800f.png"
-                className="card-img-top mx-3"
-                alt="..."
-              />
+                <img
+                  style={{ width: "80px", height: "20px" }}
+                  src="https://salt.tikicdn.com/ts/upload/d7/56/04/b93b8c666e13f49971483596ef14800f.png"
+                  className="card-img-top mx-3"
+                  alt="..."
+                />
                 <p>Tác giả: </p>
                 <p className='text-primary ms-2'>
                   {book?.authors && book.authors.length > 0 ? book.authors[0]?.name : 'N/A'}
@@ -188,4 +188,4 @@ const BookDetail = () => {
   );
 };
 
-export default BookDetail;
+export default ProductDetail;
