@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
 import './MainMenu.css';
+import { getAllProducts } from '../../services/apiServices';
+import { useEffect } from 'react';
 
 const MainMenu = () => {
+  const [listProducts, setListProducts] = useState([]);
   const [filter, setFilter] = useState(''); // Filter state for shoes
   const [currentPage, setCurrentPage] = useState(1); // Pagination state
+
+  //get products
+  useEffect(() => {
+    fetchListProducts();
+  }, []);
+
+  const fetchListProducts = async () => {
+    let res = await getAllProducts();
+    setListProducts(res)
+  }
+  console.log("check res: ", listProducts)
 
   // Constants
   const productsPerPage = 12; // Number of products per page

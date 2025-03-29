@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './assets/Components/Header/Header';
-import MainMenu from './assets/Components/Main/MainMenu';
-import BookDetail from './assets/Components/PageDetails/BookDetail';
-import Footer from './assets/Components/Footer/Footer';
+import Header from './components/Header/Header';
+import MainMenu from './components/Main/MainMenu';
+import BookDetail from './components/PageDetails/BookDetail';
+import Footer from './components/Footer/Footer';
 function App() {
 
   return (
@@ -17,11 +17,11 @@ function App() {
               <div className="container mt-1">
                 <div className="row">
                   <div className="col-md-12">
-                    <MainMenu  />
+                    <MainMenu />
                   </div>
                 </div>
               </div>
-              <Footer/>
+              <Footer />
             </>
           }
         />
