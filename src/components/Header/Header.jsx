@@ -21,7 +21,7 @@ function Header() {
                 <nav className="navbar navbar-expand-lg navbar-light" style={{ width: "100%" }}>
                     <a className="navbar-brand d-none d-lg-block me-3" href="">
                         <img className="mx-4" style={{ width: '50px' }}
-                            src="https://salt.tikicdn.com/ts/upload/0e/07/78/ee828743c9afa9792cf20d75995e134e.png"
+                            src="https://clipartcraft.com/images/spiderman-clipart-logo-1.png"
                             alt=""></img>
                     </a>
 

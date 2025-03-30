@@ -7,13 +7,7 @@ function App() {
   return (
     <>
       <Header />
-      <div className="container mt-1">
-        <div className="row">
-          <div className="col-md-12">
-            <MainMenu />
-          </div>
-        </div>
-      </div>
+      <MainMenu />
       <Footer />
     </>
 
