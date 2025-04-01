@@ -1,0 +1,25 @@
+.text-modal-logout {
+    display: flex;
+
+    .icon-warning {
+        color       : #fa4f3df0;
+        font-size   : 20px;
+        margin-right: 5px;
+
+    }
+
+    p {
+        font-size: 13px;
+        color    : #686363;
+    }
+}
+
+.btn-logout {
+    background: #41b749 !important;
+    border    : none !important;
+}
+
+.btn-cancel-logout {
+    background: #f4410e !important;
+    border    : none !important;
+}

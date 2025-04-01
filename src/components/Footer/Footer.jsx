@@ -8,7 +8,7 @@ function Footer() {
                     <div >
                         <h5>Hỗ trợ khách hàng</h5>
                         <p>Hotline: <a className="text-decoration-none text-dark fw-bold" href="tel:19006035">1900-6035</a>
-                            <p>(1000 đ/phút, 8-21h kể cả T7, CN)</p>
+                            <span>(1000 đ/phút, 8-21h kể cả T7, CN)</span>
                         </p>
                         <ul className="list-unstyled">
                             <li><a className="text-decoration-none text-secondary" href="#">Các câu hỏi thường gặp</a></li>
@@ -22,7 +22,7 @@ function Footer() {
                             <li><a className="text-decoration-none text-secondary" href="#">Báo lỗi bảo mật: security@tiki.vn</a></li>
                         </ul>
                     </div>
- 
+
                     <div >
                         <h5>Về Tiki</h5>
                         <ul className="list-unstyled">
@@ -34,7 +34,7 @@ function Footer() {
                             <li><a className="text-decoration-none text-secondary" href="#">Điều khoản sử dụng</a></li>
                         </ul>
                     </div>
- 
+
                     <div >
                         <h5>Hợp tác và liên kết</h5>
                         <ul className="list-unstyled">
@@ -44,14 +44,14 @@ function Footer() {
                         <h5>Chứng nhận bởi</h5>
                         <a href=""><img src="https://frontend.tikicdn.com/_desktop-next/static/img/footer/bo-cong-thuong.svg" alt="Chứng nhận" width="100" /></a>
                     </div>
- 
+
                     <div >
                         <h5>Phương thức thanh toán</h5>
- 
+
                         <h5>Dịch vụ giao hàng</h5>
- 
+
                     </div>
- 
+
                     <div >
                         <h5>Kết nối với chúng tôi</h5>
                         <div className="d-flex">
@@ -78,5 +78,5 @@ function Footer() {
         </footer>
     );
 }
- 
+
 export default Footer

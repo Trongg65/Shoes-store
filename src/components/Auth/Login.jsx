@@ -5,15 +5,18 @@ import { toast } from 'react-toastify';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { ImSpinner2 } from "react-icons/im";
 import { postLogin } from '../../services/apiServices';
-
+import { useDispatch } from 'react-redux';
+import { doLogin } from '../../redux/slices/authSlice';
 
 const Login = (props) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [hideShowPassword, setHideShowPassword] = useState(false)
     const navigate = useNavigate()
-    // const dispatch = useDispatch()
     const [isLoading, setIsLoading] = useState(false)
+    const dispatch = useDispatch();
+
+
 
     // const validateEmail = (username) => {
     //     return String(username)
@@ -23,20 +26,13 @@ const Login = (props) => {
     //         );
     // };
     const handleLogin = async () => {
-        // //validate
-        // const isValidEmail = validateEmail(username);
-        // if (!isValidEmail) {
-        //     toast.error('Invalid username!')
-        //     return;
-        // }
-        // if (!password) {
-        //     toast.error('Invalid password!')
-        //     return;
-        // }
+
+
         //submit apis
         let res = await postLogin(username, password);
         if (res && res.EC === 0) {
             // dispatch(doLogin(res))
+            dispatch(doLogin(res));
             toast.success(res.EM);
             // setIsLoading(false)
             navigate('/')

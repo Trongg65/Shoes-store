@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './MainMenu.css';
 import { getAllProducts } from '../../services/apiServices';
 import { useEffect } from 'react';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { increment, decrement, incrementByAmount } from '../../redux/counterSlice';
 
 const MainMenu = () => {
   const [listProducts, setListProducts] = useState([]);
@@ -49,7 +51,7 @@ const MainMenu = () => {
     { id: 23, name: 'Vans Era', price: 1150000, brand: 'Vans', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-023', color: 'White/Black' },
     { id: 24, name: 'Nike Pegasus', price: 2300000, brand: 'Nike', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-024', color: 'Red' }
   ];
-  
+
   // Filter products based on selected brand
   const filteredProducts = products.filter((product) =>
     filter ? product.brand.toLowerCase() === filter.toLowerCase() : true
@@ -66,70 +68,84 @@ const MainMenu = () => {
   // Calculate total pages
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
+
+  // const count = useSelector((state) => state.counter.value);
+  // const dispatch = useDispatch();
   return (
-    <div className="container-fluid">
-      {/* Large poster/banner at the top */}
-      <div className="poster mb-4">
-        <img
-          src="https://i.etsystatic.com/38094285/r/il/7c5837/5795459463/il_fullxfull.5795459463_gip8.jpg"
-          alt="Poster"
-          className="img-fluid"
-        />
-      </div>
-
-      {/* Filter bar for selecting shoe brands */}
-      <div className="filter-bar mb-4">
-        <p>Filter by brand:</p>
-        <select
-          className="form-select"
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-        >
-          <option value="">All Brands</option>
-          <option value="Converse">Converse</option>
-          <option value="Vans">Vans</option>
-          <option value="Nike">Nike</option>
-          <option value="Adidas">Adidas</option>
-        </select>
-      </div>
-      <div className="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-2">
-  {currentProducts.map((product) => (
-    <div key={product.id} className="col mb-4">
-      <div className="card h-100">
-        <img
-          src={product.imageUrl}
-          className="card-img-top"
-          alt={product.name}
-        />
-        <div className="card-body d-flex flex-column">
-          <h6 className="card-title">{product.name}</h6>
-          <p className="card-text product-price centered-text">
-            <strong>{product.price.toLocaleString('vi-VN')}₫</strong>
-          </p>
+    <>
+      {/* <div>
+        <h1>Counter: {count}</h1>
+        <button onClick={() => dispatch(increment())}>+</button>
+        <button onClick={() => dispatch(decrement())}>-</button>
+        <button onClick={() => dispatch(incrementByAmount(5))}>+5</button>
+      </div> */}
+      <div className="container-fluid">
+        {/* Large poster/banner at the top */}
+        <div className="poster mb-4">
+          <img
+            src="https://i.etsystatic.com/38094285/r/il/7c5837/5795459463/il_fullxfull.5795459463_gip8.jpg"
+            alt="Poster"
+            className="img-fluid"
+          />
         </div>
-        <div className="card-footer">
-          <button className="btn btn-primary w-100">Add to cart</button>
-        </div>
-      </div>
-    </div>
-  ))}
-</div>
 
-      {/* Pagination */}
-      <div className="pagination d-flex justify-content-center">
-        <nav>
-          <ul className="pagination">
-            {[...Array(totalPages)].map((_, index) => (
-              <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
-                <button className="page-link" onClick={() => paginate(index + 1)}>
-                  {index + 1}
-                </button>
-              </li>
+        {/* Filter bar for selecting shoe brands */}
+        <div className="container filter-bar mb-4">
+          <p>Filter by brand:</p>
+          <select
+            className="form-select"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+          >
+            <option value="">All Brands</option>
+            <option value="Converse">Converse</option>
+            <option value="Vans">Vans</option>
+            <option value="Nike">Nike</option>
+            <option value="Adidas">Adidas</option>
+          </select>
+        </div>
+        <div className='container'>
+
+          <div className="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-2">
+            {currentProducts.map((product) => (
+              <div key={product.id} className="col mb-4">
+                <div className="card h-100">
+                  <img
+                    src={product.imageUrl}
+                    className="card-img-top"
+                    alt={product.name}
+                  />
+                  <div className="card-body d-flex flex-column">
+                    <h6 className="card-title">{product.name}</h6>
+                    <p className="card-text product-price centered-text">
+                      <strong>{product.price.toLocaleString('vi-VN')}₫</strong>
+                    </p>
+                  </div>
+                  <div className="card-footer">
+                    <button className="btn btn-primary w-100">Add to cart</button>
+                  </div>
+                </div>
+              </div>
             ))}
-          </ul>
-        </nav>
+          </div>
+        </div>
+
+        {/* Pagination */}
+        <div className="pagination d-flex justify-content-center">
+          <nav>
+            <ul className="pagination">
+              {[...Array(totalPages)].map((_, index) => (
+                <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                  <button className="page-link" onClick={() => paginate(index + 1)}>
+                    {index + 1}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
