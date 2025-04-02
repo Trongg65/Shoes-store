@@ -12,6 +12,7 @@ import Register from './components/Auth/Register'
 import { Provider } from 'react-redux';
 import store, { persistor } from './redux/store'
 import { PersistGate } from 'redux-persist/integration/react';
+import Admin from './components/Admin/Admin'
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />
+  },
+  {
+    path: "/admin",
+    element: <Admin />
   },
 
 ])
