@@ -1,4 +1,3 @@
-import React from "react"
 import './Header.css';
 import SearchBar from "./SearchBar";
 import { SearchResultsList } from './SearchResultsList'
@@ -9,13 +8,13 @@ import { IoIosLogOut } from "react-icons/io";
 import ModalLogout from "./ModalLogout";
 import CartIcon from "./CartIcon";
 
-
 function Header() {
     const { account, isAuthenticated } = useSelector(state => state.auth);
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [results, setResults] = useState([]);
-    const [isShowModalResult, setIsShowModalResult] = useState(false)
+    const [isShowModalResult, setIsShowModalResult] = useState(false);
+    const [searchInput, setSearchInput] = useState("");
 
     const handleSubmit = (event) => {
         event.preventDefault(); // Ngăn không cho form reload
@@ -38,8 +37,6 @@ function Header() {
                             src="https://clipartcraft.com/images/spiderman-clipart-logo-1.png"
                             alt=""></img>
                     </a>
-
-
 
                     <button className="navbar-toggler mx-3 border-0 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
                         <span className="navbar-toggler-icon"></span>
@@ -84,7 +81,6 @@ function Header() {
                         </div>
                     </div>
                 </nav>
-
             </header>
 
             <div className="container d-none d-lg-block">

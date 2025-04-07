@@ -22,11 +22,12 @@ const cartSlice = createSlice({
           ...product,
           size,
           quantity: 1,
+          price: product.price
         });
       }
 
       state.total = state.items.reduce(
-        (total, item) => total + item.price * item.quantity,
+        (total, item) => total + (item.price * item.quantity),
         0
       );
     },
@@ -36,7 +37,7 @@ const cartSlice = createSlice({
         item => !(item.id === productId && item.size === size)
       );
       state.total = state.items.reduce(
-        (total, item) => total + item.price * item.quantity,
+        (total, item) => total + (item.price * item.quantity),
         0
       );
     },
@@ -49,7 +50,7 @@ const cartSlice = createSlice({
         item.quantity = quantity;
       }
       state.total = state.items.reduce(
-        (total, item) => total + item.price * item.quantity,
+        (total, item) => total + (item.price * item.quantity),
         0
       );
     },
