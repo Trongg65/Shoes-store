@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import store, { persistor } from './redux/store'
 import { PersistGate } from 'redux-persist/integration/react';
 import Admin from './components/Admin/Admin'
+import CartPage from './components/Cart/CartPage'
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,10 @@ const router = createBrowserRouter([
     path: "/admin",
     element: <Admin />
   },
-
+  {
+    path: "/cart",
+    element: <CartPage />
+  },
 ])
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

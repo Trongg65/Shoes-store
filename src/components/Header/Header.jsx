@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { IoIosLogOut } from "react-icons/io";
 import ModalLogout from "./ModalLogout";
+import CartIcon from "./CartIcon";
 
 
 function Header() {
@@ -78,12 +79,9 @@ function Header() {
                                 Tài khoản
                             </a>
                         }
-                        <a href="#" className="cart border-0 border-start mx-5">
-                            <img
-                                src="https://salt.tikicdn.com/ts/upload/51/e2/92/8ca7e2cc5ede8c09e34d1beb50267f4f.png"
-                                alt="Cart" />
-                            <span className="cart-count">99+</span>
-                        </a>
+                        <div className="cart border-0 border-start mx-5">
+                            <CartIcon />
+                        </div>
                     </div>
                 </nav>
 
