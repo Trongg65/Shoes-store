@@ -24,33 +24,7 @@ const MainMenu = () => {
   // Constants
   const productsPerPage = 12; // Number of products per page
 
-  // // Sample product data, can be replaced with fetched data later
-  // const products = [
-  //   { id: 1, name: 'Converse Classic', price: 1200000, brand: 'Converse', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/082/392/543/original/568383_01.jpg.jpeg?action=crop&width=600', sku: 'SD-001', color: 'Black' },
-  //   { id: 2, name: 'Vans Old Skool', price: 1400000, brand: 'Vans', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-002', color: 'Blue' },
-  //   { id: 3, name: 'Nike Air Max', price: 2500000, brand: 'Nike', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-003', color: 'Red' },
-  //   { id: 4, name: 'Adidas UltraBoost', price: 2800000, brand: 'Adidas', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-004', color: 'White' },
-  //   { id: 5, name: 'Converse Chuck 70', price: 1350000, brand: 'Converse', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/096/977/182/original/147186_01.jpg.jpeg?action=crop&width=600', sku: 'SD-005', color: 'Green' },
-  //   { id: 6, name: 'Vans Authentic', price: 1100000, brand: 'Vans', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-006', color: 'Yellow' },
-  //   { id: 7, name: 'Nike Jordan 1', price: 3200000, brand: 'Nike', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-007', color: 'Black/Red' },
-  //   { id: 8, name: 'Adidas Superstar', price: 1900000, brand: 'Adidas', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-008', color: 'White/Black' },
-  //   { id: 9, name: 'Converse All Star', price: 1250000, brand: 'Converse', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/084/146/672/original/1255_01.jpg.jpeg?action=crop&width=600', sku: 'SD-009', color: 'Red' },
-  //   { id: 10, name: 'Vans Slip-On', price: 1200000, brand: 'Vans', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-010', color: 'White/Black' },
-  //   { id: 11, name: 'Nike ZoomX', price: 2800000, brand: 'Nike', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-011', color: 'Black' },
-  //   { id: 12, name: 'Adidas NMD', price: 2400000, brand: 'Adidas', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-012', color: 'Blue' },
-  //   { id: 13, name: 'Converse One Star', price: 1400000, brand: 'Converse', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_pictures/images/015/781/060/original/162569C.png.png?action=crop&width=600', sku: 'SD-013', color: 'Green' },
-  //   { id: 14, name: 'Vans Era', price: 1150000, brand: 'Vans', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-014', color: 'Red' },
-  //   { id: 15, name: 'Nike Pegasus', price: 2300000, brand: 'Nike', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-015', color: 'Black' },
-  //   { id: 16, name: 'Adidas Gazelle', price: 1750000, brand: 'Adidas', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-016', color: 'Yellow' },
-  //   { id: 17, name: 'Adidas Superstar', price: 1900000, brand: 'Adidas', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-017', color: 'White' },
-  //   { id: 18, name: 'Converse All Star', price: 1250000, brand: 'Converse', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/084/146/672/original/1255_01.jpg.jpeg?action=crop&width=600', sku: 'SD-018', color: 'Black' },
-  //   { id: 19, name: 'Vans Slip-On', price: 1200000, brand: 'Vans', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-019', color: 'Blue' },
-  //   { id: 20, name: 'Nike ZoomX', price: 2800000, brand: 'Nike', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-020', color: 'Yellow' },
-  //   { id: 21, name: 'Adidas NMD', price: 2400000, brand: 'Adidas', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-021', color: 'White' },
-  //   { id: 22, name: 'Converse One Star', price: 1400000, brand: 'Converse', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_pictures/images/015/781/060/original/162569C.png.png?action=crop&width=600', sku: 'SD-022', color: 'Black/White' },
-  //   { id: 23, name: 'Vans Era', price: 1150000, brand: 'Vans', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-023', color: 'White/Black' },
-  //   { id: 24, name: 'Nike Pegasus', price: 2300000, brand: 'Nike', imageUrl: 'https://image.goat.com/transform/v1/attachments/product_template_additional_pictures/images/079/325/005/original/517878_01.jpg.jpeg?action=crop&width=600', sku: 'SD-024', color: 'Red' }
-  // ];
+
 
   // Filter products based on selected brand
   const filteredProducts = listProducts.filter((product) =>
@@ -73,13 +47,44 @@ const MainMenu = () => {
 
       <div className="container-fluid">
         {/* Large poster/banner at the top */}
-        <div className="poster mb-4">
-          <img
-            src="https://i.etsystatic.com/38094285/r/il/7c5837/5795459463/il_fullxfull.5795459463_gip8.jpg"
-            alt="Poster"
-            className="img-fluid"
-          />
-        </div>
+        <div id="posterCarousel" className="carousel slide mb-4" data-bs-ride="carousel">
+  <div className="carousel-inner">
+    <div className="carousel-item active">
+      <img
+        src="https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-8e20-51f7-b0f5-d6a21bf7c77f/raw?se=2025-04-07T04%3A17%3A46Z&sp=r&sv=2024-08-04&sr=b&scid=160a8ed1-2989-56d4-8edb-0cbe208ed476&skoid=a3336399-497e-45e5-8f28-4b88ecca3d1f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-04-06T07%3A07%3A53Z&ske=2025-04-07T07%3A07%3A53Z&sks=b&skv=2024-08-04&sig=zfiq5IzTbFi33jBTeVqM7CW67T4Xj4Jp%2BMvRg%2BUpRaI%3D"
+        className="d-block w-100"
+        alt="Poster 1"
+        style={{ maxHeight: '500px', objectFit: 'cover',width: '100%' }}
+      />
+    </div>
+    <div className="carousel-item">
+      <img
+        src="https://sdmntprwestus.oaiusercontent.com/files/00000000-9754-5230-9061-acc14cee0697/raw?se=2025-04-07T04%3A40%3A38Z&sp=r&sv=2024-08-04&sr=b&scid=67adf520-ffbc-5516-bf48-cb89656b3287&skoid=a3336399-497e-45e5-8f28-4b88ecca3d1f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-04-06T10%3A52%3A41Z&ske=2025-04-07T10%3A52%3A41Z&sks=b&skv=2024-08-04&sig=5v9QkKfgwXe3XXtDXWdhqa8RWa2GgVigdlpmzw6CHYI%3D"
+        className="d-block w-100"
+        alt="Poster 2"
+        style={{ maxHeight: '600px', objectFit: 'cover',width: '100%' }}
+      />
+    </div>
+    <div className="carousel-item">
+      <img
+        src="https://sdmntpritalynorth.oaiusercontent.com/files/00000000-47e8-5246-bc93-8c4fadbd6f3c/raw?se=2025-04-07T04%3A05%3A29Z&sp=r&sv=2024-08-04&sr=b&scid=6756ecb6-ddd4-50a6-982b-9297f9f411ca&skoid=a3336399-497e-45e5-8f28-4b88ecca3d1f&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-04-06T19%3A21%3A44Z&ske=2025-04-07T19%3A21%3A44Z&sks=b&skv=2024-08-04&sig=Zc88kPHOQifZ4svu2qv4Dr31J6j%2BAwZRsXRqBpQ/e2E%3D"
+        className="d-block w-100"
+        alt="Poster 3"
+        style={{ maxHeight: '500px', objectFit: 'cover',width: '100%'}}
+      />
+    </div>
+  </div>
+  {/* Controls */}
+  <button className="carousel-control-prev" type="button" data-bs-target="#posterCarousel" data-bs-slide="prev">
+    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span className="visually-hidden">Previous</span>
+  </button>
+  <button className="carousel-control-next" type="button" data-bs-target="#posterCarousel" data-bs-slide="next">
+    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+    <span className="visually-hidden">Next</span>
+  </button>
+</div>
+
 
         {/* Filter bar for selecting shoe brands */}
         <div className="container filter-bar mb-4">
@@ -99,7 +104,7 @@ const MainMenu = () => {
         <div className='container'>
 
           <div className="row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-2">
-            {listProducts.map((products, index) => (
+            {currentProducts.map((products, index) => (
               <div key={index} className="col mb-4">
                 <Link to={'product/' + products.id} className="card mt-1 border-0 text-decoration-none shadow" style={{ width: '100%' }}>
 
@@ -116,7 +121,7 @@ const MainMenu = () => {
                       </p>
                     </div>
                     <div className="card-footer">
-                      <button className="btn btn-primary w-100">Add to cart</button>
+                      <button className="btn btn-danger w-100">See more details</button>
                     </div>
                   </div>
                 </Link>
@@ -126,7 +131,7 @@ const MainMenu = () => {
         </div>
 
         {/* Pagination */}
-        <div className="pagination d-flex justify-content-center">
+        <div className="pagination d-flex btn-danger justify-content-center">
           <nav>
             <ul className="pagination">
               {[...Array(totalPages)].map((_, index) => (
