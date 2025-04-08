@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import store, { persistor } from './redux/store'
 import { PersistGate } from 'redux-persist/integration/react';
 import Admin from './components/Admin/Admin'
+import ManageUser from './components/Admin/Content/ManageUser'
 
 const router = createBrowserRouter([
   {
@@ -33,7 +34,17 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <Admin />
+    element: <Admin />,
+    children: [
+      {
+        index: true, // Route mặc định khi vào "/admin"
+        element: <h2>Welcome to Admin Panel</h2>
+      },
+      {
+        path: "manage-users", // Sẽ thành "/admin/manage-users"
+        element: <ManageUser />
+      }
+    ]
   },
 
 ])

@@ -21,7 +21,7 @@ const Admin = (props) => {
                     <div className="rightside">
                         <NavDropdown title="Setting" id="basic-nav-dropdown">
                             <NavDropdown.Item >Profile</NavDropdown.Item>
-                            <NavDropdown.Item  >Log out </NavDropdown.Item>
+                            <NavDropdown.Item >Log out </NavDropdown.Item>
                         </NavDropdown>
                     </div>
                 </div>

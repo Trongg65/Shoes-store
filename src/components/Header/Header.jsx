@@ -21,8 +21,15 @@ function Header() {
         console.log('Tìm kiếm:', searchInput);
     };
 
+    const handleBackHome = () => {
+        navigate('/')
+    }
+
     const handleLogin = () => {
         navigate('/login')
+    }
+    const handleChangeAdmin = () => {
+        navigate('/admin')
     }
 
     const handleLogout = () => {
@@ -32,7 +39,7 @@ function Header() {
         <>
             <header className="container p-2 d-flex">
                 <nav className="navbar navbar-expand-lg navbar-light" style={{ width: "100%" }}>
-                    <a className="navbar-brand d-none d-lg-block me-3" href="">
+                    <a className="navbar-brand d-none d-lg-block me-3" href="" onClick={() => handleBackHome()}>
                         <img className="mx-4" style={{ width: '50px' }}
                             src="https://clipartcraft.com/images/spiderman-clipart-logo-1.png"
                             alt=""></img>
@@ -57,11 +64,21 @@ function Header() {
                     </button>
 
                     <div className="header-icons d-lg-flex d-none">
-                        <a href="#" className="home">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" className="bi bi-house" viewBox="0 0 16 16">
-                                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
-                            </svg>
-                            Trang chủ</a>
+                        {account.is_staff ?
+                            <a className="home" onClick={() => handleChangeAdmin()}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" className="bi bi-house" viewBox="0 0 16 16">
+                                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
+                                </svg>
+                                Admin
+                            </a>
+                            :
+                            <a className="home">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" className="bi bi-house" viewBox="0 0 16 16">
+                                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
+                                </svg>
+                                Trang chủ
+                            </a>
+                        }
                         {isAuthenticated ?
                             <a className="account" >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-person" viewBox="0 0 16 16">
