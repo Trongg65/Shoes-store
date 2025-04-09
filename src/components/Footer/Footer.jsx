@@ -2,7 +2,7 @@ import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
-  return (
+    return (
     <footer className="bg-gray-100 text-gray-800">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -52,8 +52,8 @@ const Footer = () => {
                   Liên hệ
                 </Link>
               </li>
-            </ul>
-          </div>
+                        </ul>
+                    </div>
 
           {/* Chính sách */}
           <div>
@@ -79,8 +79,8 @@ const Footer = () => {
                   Điều khoản sử dụng
                 </Link>
               </li>
-            </ul>
-          </div>
+                        </ul>
+                    </div>
 
           {/* Thông tin liên hệ */}
           <div>
@@ -102,9 +102,9 @@ const Footer = () => {
                 <span className="mr-2">⏰</span>
                 <span>9:00 - 21:00 (T2 - CN)</span>
               </li>
-            </ul>
-          </div>
-        </div>
+                        </ul>
+                    </div>
+                    </div>
 
         {/* Phần thanh toán */}
         <div className="mt-12 pt-8 border-t border-gray-300">
@@ -135,16 +135,16 @@ const Footer = () => {
               alt="ZaloPay" 
               className="h-8"
             />
-          </div>
-        </div>
+                    </div>
+                </div>
 
         {/* Bản quyền */}
         <div className="mt-8 pt-8 border-t border-gray-300 text-center text-gray-500">
           <p>© 2024 Sneaker Store. Tất cả quyền được bảo lưu.</p>
-        </div>
-      </div>
-    </footer>
-  );
+                </div>
+            </div>
+        </footer>
+    );
 };
 
 export default Footer;
