@@ -24,11 +24,14 @@ const CartPage = () => {
   };
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('vi-VN', {
+    const formattedPrice = new Intl.NumberFormat('vi-VN', {
       style: 'currency',
       currency: 'VND',
       minimumFractionDigits: 0
     }).format(price);
+    
+    // Thêm .000 vào sau giá tiền
+    return formattedPrice.replace('₫', '.000 ₫');
   };
 
   if (cartItems.length === 0) {
@@ -38,7 +41,7 @@ const CartPage = () => {
           <h2 className="text-2xl font-bold mb-4">Giỏ hàng trống</h2>
           <p className="text-gray-600 mb-6">Bạn chưa có sản phẩm nào trong giỏ hàng</p>
           <Link
-            to="/products"
+            to="/"
             className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Tiếp tục mua sắm
