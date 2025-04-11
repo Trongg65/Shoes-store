@@ -34,18 +34,25 @@ const ModalViewUser = (props) => {
             setIsStaff(dataUpdate.is_staff);
             setImage("");
             if (dataUpdate.image) {
-                setPreviewImage(`data:image/jpeg;base64,${dataUpdate.image}`);
+                // Kiểm tra nếu image là Base64 hay URL
+                if (dataUpdate.image.startsWith("data:image")) {
+                    setPreviewImage(dataUpdate.image); // Base64 -> giữ nguyên
+                } else {
+                    setPreviewImage(dataUpdate.image); // URL -> giữ nguyên
+                }
             }
         }
     }, [dataUpdate])
     const handleUploadImage = (event) => {
-        if (event.target && event.target.files && event.target.files[0]) {
-            setPreviewImage(URL.createObjectURL(event.target.files[0]))
-            setImage(event.target.files[0])
-        } else {
-            // setPreviewImage("")
+        const file = event.target.files?.[0]; // Lấy file từ input
+
+        if (file) {
+            const imageUrl = URL.createObjectURL(file);
+            setPreviewImage(imageUrl); // Hiển thị ảnh preview
+            setImage(file); // Lưu file vào state
         }
-    }
+        console.log(file)
+    };
     const validateEmail = (email) => {
         return String(email)
             .toLowerCase()

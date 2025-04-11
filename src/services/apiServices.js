@@ -3,6 +3,44 @@ import axios from "../utils/axiosCustomize";
 const getAllProducts = () => {
     return axios.get('api/products')
 }
+
+const postCreateProduct = (name, price, brand, color, sku, description, image) => {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("price", price);
+    formData.append("brand", brand);
+    formData.append("color", color);
+    formData.append("sku", sku);
+    formData.append("description", description);
+    formData.append("image", image);
+
+    return axios.post("api/products/create", formData, {
+        headers: { "Content-Type": "multipart/form-data" }
+    });
+};
+
+const putUpdateProduct = (id, name, price, brand, color, sku, description, image) => {
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('name', name);
+    formData.append('price', price);
+    formData.append('brand', brand);
+    formData.append('color', color);
+    formData.append('sku', sku);
+    formData.append('description', description);
+    if (image) {
+        formData.append('image', image);
+    }
+
+    return axios.put('api/products/update', formData, {
+        headers: { "Content-Type": "multipart/form-data" }
+    });
+};
+
+const deleteProduct = (product_id) => {
+    return axios.delete('api/products/delete', { data: { product_id: product_id } });
+};
+
 const postLogin = (username, password) => {
     return axios.post(`api/users/login`, {
         username: username,
@@ -45,5 +83,13 @@ const putUpdateUser = (id, email, is_staff, image) => {
 }
 
 export {
-    getAllProducts, postLogin, postRegister, getAllUsers, deleteUser, putUpdateUser
+    getAllProducts,
+    postCreateProduct,
+    putUpdateProduct,
+    deleteProduct,
+    postLogin,
+    postRegister,
+    getAllUsers,
+    deleteUser,
+    putUpdateUser
 };
