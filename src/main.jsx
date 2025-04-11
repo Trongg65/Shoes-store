@@ -16,6 +16,7 @@ import Admin from './components/Admin/Admin'
 import ManageUser from './components/Admin/Content/ManageUser'
 import CartPage from './components/Cart/CartPage'
 import ManageProduct from './components/Admin/Content/Product/ManageProduct'
+import DashBoard from './components/Admin/Content/Dashboard'
 
 const router = createBrowserRouter([
   {
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true, // Route mặc định khi vào "/admin"
-        element: <h2>Welcome to Admin Panel</h2>
+        element: <DashBoard />
       },
       {
         path: "manage-users", // Sẽ thành "/admin/manage-users"

@@ -68,7 +68,7 @@ const ProductDetail = () => {
     );
   }
 
-  const { name, price, description, brand, sku, color } = product;
+  const { name, price, description, brand, sku, color, image } = product;
 
   const sizes = [38, 39, 40, 41, 42, 43, 44];
 
@@ -113,7 +113,7 @@ const ProductDetail = () => {
           {/* Hình ảnh sản phẩm */}
           <div className="flex justify-center p-4 col-md-8">
             <img
-              src='https://sneakerdaily.vn/wp-content/uploads/2024/08/Giay-Air-Jordan-1-Low-OG-Mocha-CZ0790-102.jpg'
+              src={image}
               alt={name}
               style={{ maxWidth: '450px', height: 'auto' }}
             />

@@ -82,6 +82,9 @@ const putUpdateUser = (id, email, is_staff, image) => {
     return axios.put('api/users/update', data)
 }
 
+const getOverview = () => {
+    return axios.get(`api/overview-statistics`)
+}
 export {
     getAllProducts,
     postCreateProduct,
@@ -91,5 +94,6 @@ export {
     postRegister,
     getAllUsers,
     deleteUser,
-    putUpdateUser
+    putUpdateUser,
+    getOverview
 };
