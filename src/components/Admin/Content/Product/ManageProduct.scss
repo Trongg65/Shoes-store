@@ -93,14 +93,20 @@
 }
 
 .product-image-cell {
-    width : 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
+    padding: 8px;
 
     img {
-        width        : 100%;
-        height       : 100%;
-        object-fit   : cover;
-        border-radius: 4px;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 8px;
+        transition: transform 0.2s;
+
+        &:hover {
+            transform: scale(1.1);
+        }
     }
 }
 

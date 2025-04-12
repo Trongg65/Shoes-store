@@ -28,6 +28,15 @@ const MainMenu = () => {
   }
   console.log("check res: ", listProducts)
 
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(price);
+  };
+
   // Constants
   const productsPerPage = 12; // Number of products per page
 
@@ -122,7 +131,7 @@ const MainMenu = () => {
                     <div className="card-body d-flex flex-column">
                       <h6 className="card-title">{products.name}</h6>
                       <p className="card-text product-price centered-text">
-                        <strong>{products.price}$</strong>
+                        <strong>{formatPrice(products.price)}</strong>
                       </p>
                     </div>
                     <div className="card-footer">
@@ -136,19 +145,45 @@ const MainMenu = () => {
         </div>
 
         {/* Pagination */}
-        <div className="pagination d-flex justify-content-center">
-          <nav>
-            <ul className="pagination">
-              {[...Array(totalPages)].map((_, index) => (
-                <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
-                  <button className="page-link" onClick={() => paginate(index + 1)}>
-                    {index + 1}
+        {totalPages > 1 && (
+          <div className="d-flex justify-content-center mt-4">
+            <nav>
+              <ul className="pagination">
+                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                  <button
+                    className="page-link"
+                    onClick={() => paginate(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
+                    Previous
                   </button>
                 </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
+                {[...Array(totalPages)].map((_, index) => (
+                  <li
+                    key={index + 1}
+                    className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => paginate(index + 1)}
+                    >
+                      {index + 1}
+                    </button>
+                  </li>
+                ))}
+                <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                  <button
+                    className="page-link"
+                    onClick={() => paginate(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                  >
+                    Next
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        )}
       </div>
     </>
   );

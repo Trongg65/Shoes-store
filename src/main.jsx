@@ -40,15 +40,15 @@ const router = createBrowserRouter([
     element: <Admin />,
     children: [
       {
-        index: true, // Route mặc định khi vào "/admin"
+        index: true,
         element: <DashBoard />
       },
       {
-        path: "manage-users", // Sẽ thành "/admin/manage-users"
+        path: "manage-users",
         element: <ManageUser />
       },
       {
-        path: "manage-products", // Sẽ thành "/admin/manage-products"
+        path: "manage-products",
         element: <ManageProduct />
       }
     ]
@@ -56,8 +56,9 @@ const router = createBrowserRouter([
   {
     path: "/cart",
     element: <CartPage />
-  },
+  }
 ])
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>

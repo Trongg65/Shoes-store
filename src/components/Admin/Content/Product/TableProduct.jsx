@@ -1,5 +1,15 @@
 const TableProduct = (props) => {
     const { listProducts } = props;
+
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).format(price);
+    };
+
     return (
         <>
             <table className="table table-hover table-bordered">
@@ -29,7 +39,7 @@ const TableProduct = (props) => {
                                         />
                                     </td>
                                     <td>{item.name}</td>
-                                    <td>${item.price}</td>
+                                    <td>{formatPrice(item.price)}</td>
                                     <td>{item.brand}</td>
                                     <td>{item.color}</td>
                                     <td>{item.sku}</td>

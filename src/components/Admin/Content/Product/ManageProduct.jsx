@@ -7,6 +7,7 @@ import ModalCreateProduct from "./ModalCreateProduct";
 import ModalUpdateProduct from "./ModalUpdateProduct";
 import ModalDeleteProduct from "./ModalDeleteProduct";
 import ModalViewProduct from "./ModalViewProduct";
+import Pagination from 'react-bootstrap/Pagination';
 
 const ManageProduct = () => {
     const [showModalCreateProduct, setShowModalCreateProduct] = useState(false);
@@ -17,6 +18,10 @@ const ManageProduct = () => {
     const [dataUpdate, setDataUpdate] = useState({});
     const [dataDelete, setDataDelete] = useState({});
     const [listProducts, setListProducts] = useState([]);
+    
+    // Thêm state cho phân trang
+    const [currentPage, setCurrentPage] = useState(1);
+    const [productsPerPage] = useState(6);
 
     useEffect(() => {
         fetchListProducts();
@@ -47,7 +52,34 @@ const ManageProduct = () => {
     const resetUpdateData = () => {
         setDataUpdate({});
     };
-    console.log(listProducts)
+
+    // Tính toán sản phẩm cho trang hiện tại
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+    const currentProducts = listProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+
+    // Tính tổng số trang
+    const totalPages = Math.ceil(listProducts.length / productsPerPage);
+
+    // Xử lý khi click vào số trang
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    // Tạo các item cho thanh phân trang
+    let paginationItems = [];
+    for (let number = 1; number <= totalPages; number++) {
+        paginationItems.push(
+            <Pagination.Item 
+                key={number} 
+                active={number === currentPage}
+                onClick={() => handlePageChange(number)}
+            >
+                {number}
+            </Pagination.Item>
+        );
+    }
+
     return (
         <div className="manage-product-container">
             <div className="title">
@@ -64,11 +96,32 @@ const ManageProduct = () => {
                 </div>
                 <div className="table-products-container">
                     <TableProduct
-                        listProducts={listProducts}
+                        listProducts={currentProducts}
                         handleClickBtnDelete={handleClickBtnDelete}
                         handleClickBtnUpdate={handleClickBtnUpdate}
                         handleClickBtnView={handleClickBtnView}
                     />
+                    <div className="d-flex justify-content-center mt-3">
+                        <Pagination>
+                            <Pagination.First 
+                                onClick={() => setCurrentPage(1)} 
+                                disabled={currentPage === 1}
+                            />
+                            <Pagination.Prev 
+                                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                                disabled={currentPage === 1}
+                            />
+                            {paginationItems}
+                            <Pagination.Next 
+                                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                                disabled={currentPage === totalPages}
+                            />
+                            <Pagination.Last 
+                                onClick={() => setCurrentPage(totalPages)}
+                                disabled={currentPage === totalPages}
+                            />
+                        </Pagination>
+                    </div>
                 </div>
                 <ModalCreateProduct
                     show={showModalCreateProduct}

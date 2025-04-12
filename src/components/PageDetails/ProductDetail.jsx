@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import { getAllProducts } from '../../services/apiServices';
@@ -10,6 +10,7 @@ import { FaHeart, FaShare } from 'react-icons/fa';
 
 const ProductDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [listProductsDetail, setListProductsDetail] = useState([]);
   const [selectedSize, setSelectedSize] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -31,6 +32,15 @@ const ProductDetail = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    }).format(price);
   };
 
   const product = listProductsDetail.find(item => item.id == id);
@@ -81,6 +91,15 @@ const ProductDetail = () => {
     toast.success('Đã thêm sản phẩm vào giỏ hàng!');
   };
 
+  const handleBuyNow = () => {
+    if (!selectedSize) {
+      toast.warning('Vui lòng chọn size giày!');
+      return;
+    }
+    dispatch(addToCart({ product, size: selectedSize }));
+    navigate('/cart');
+  };
+
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
@@ -98,7 +117,6 @@ const ProductDetail = () => {
     <>
       <Header />
       <div className="container">
-        {/* Breadcrumb */}
         <nav className="py-4">
           <ol className="flex items-center space-x-2 text-sm text-gray-500">
             <li><Link to="/" className="hover:text-blue-500">Trang chủ</Link></li>
@@ -110,16 +128,15 @@ const ProductDetail = () => {
         </nav>
 
         <div className="row">
-          {/* Hình ảnh sản phẩm */}
           <div className="flex justify-center p-4 col-md-8">
             <img
               src={image}
               alt={name}
-              style={{ maxWidth: '450px', height: 'auto' }}
+              className="w-full h-auto object-contain"
+              style={{ maxWidth: '450px' }}
             />
           </div>
 
-          {/* Thông tin sản phẩm */}
           <div className="col-md-4">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-5xl font-bold">{name}</h2>
@@ -139,10 +156,9 @@ const ProductDetail = () => {
               </div>
             </div>
             <p className="text-2xl text-red-500 font-semibold mb-6">
-              Giá: {price.toLocaleString('vi-VN')} VND
+              Giá: {formatPrice(price)}
             </p>
 
-            {/* Chọn size giày */}
             <div className="mb-6">
               <h3 className="text-lg font-semibold mb-2">Chọn size giày:</h3>
               <div className="flex flex-wrap gap-2">
@@ -166,9 +182,9 @@ const ProductDetail = () => {
               )}
             </div>
 
-            {/* Nút Mua hàng */}
             <div className="mb-6 border-b border-gray-200 pb-7">
               <button
+                onClick={handleBuyNow}
                 className="w-full bg-red-500 text-white py-3 rounded-lg text-lg font-bold hover:bg-red-600 transition-colors duration-200"
               >
                 Mua ngay
@@ -181,7 +197,6 @@ const ProductDetail = () => {
               </button>
             </div>
 
-            {/* Thông tin chi tiết */}
             <div className="space-y-3">
               <div className="flex">
                 <p className="w-20 text-gray-600">Brand:</p>
@@ -198,11 +213,43 @@ const ProductDetail = () => {
             </div>
           </div>
 
-          {/* Mô tả sản phẩm */}
           <div className="col-12 mt-8 border-t border-gray-200 pt-8">
             <h3 className="text-2xl font-semibold mb-4">Mô tả sản phẩm</h3>
             <p className="text-gray-700 leading-relaxed">{description}</p>
           </div>
+
+          {/* Related Products Section */}
+          {listProductsDetail.filter(item => item.brand === brand && item.id !== id).length > 0 && (
+            <div className="col-12 mt-8 border-t border-gray-200 pt-8">
+              <h3 className="text-2xl font-semibold mb-6">Sản phẩm liên quan</h3>
+              <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                {listProductsDetail
+                  .filter(item => item.brand === brand && item.id !== id)
+                  .slice(0, 4)
+                  .map((relatedProduct) => (
+                    <div key={relatedProduct.id} className="col">
+                      <Link 
+                        to={`/product/${relatedProduct.id}`} 
+                        className="card h-100 border-0 shadow-sm hover:shadow-lg transition-shadow duration-300"
+                      >
+                        <img
+                          src={relatedProduct.image}
+                          alt={relatedProduct.name}
+                          className="card-img-top"
+                          style={{ height: '200px', objectFit: 'contain' }}
+                        />
+                        <div className="card-body">
+                          <h5 className="card-title text-lg font-semibold mb-2">{relatedProduct.name}</h5>
+                          <p className="card-text text-red-500 font-semibold">
+                            {formatPrice(relatedProduct.price)}
+                          </p>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <Footer />

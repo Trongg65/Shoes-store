@@ -9,6 +9,15 @@ const ModalViewProduct = (props) => {
         props.resetUpdateData();
     }
 
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).format(price);
+    };
+
     return (
         <Modal
             show={show}
@@ -36,7 +45,7 @@ const ModalViewProduct = (props) => {
                             <h3>{dataUpdate.name}</h3>
                             <div className="info-item">
                                 <span className="label">Price:</span>
-                                <span className="value">${dataUpdate.price}</span>
+                                <span className="value">{formatPrice(dataUpdate.price)}</span>
                             </div>
                             <div className="info-item">
                                 <span className="label">Brand:</span>
