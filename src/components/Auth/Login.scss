@@ -67,6 +67,9 @@
             border-radius   : 5px;
             background-color: #262627;
             color           : white;
+            display         : flex;
+            align-items     : center;
+            justify-content : center;
 
             &:disabled {
                 background-color: #dddddd;
@@ -84,17 +87,26 @@
         .eye-password-login {
             position: relative;
             bottom  : 28px;
-            left    : 223px;
+            left    : 225px;
             cursor  : pointer;
         }
 
         .forgot-password {
-            top            : -20px;
             position       : relative;
+            bottom         : 15px;
+            cursor         : pointer;
             text-decoration: underline;
-            color          : #777;
-            font-size      : 13px;
         }
 
     }
+}
+
+/* Tùy chỉnh thanh progress */
+#nprogress .bar {
+    background: #2998ff !important;
+    height    : 3px !important;
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px #2998ff, 0 0 5px #2998ff !important;
 }

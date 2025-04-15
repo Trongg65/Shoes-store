@@ -51,13 +51,17 @@ const postLogin = (username, password) => {
 //     return axios.post(`api/users/register`, { username: username, email: email, password: password, is_staff: is_staff, image: image })
 // }
 
-const postRegister = (username, email, password, is_staff, image) => {
+const postRegister = (username, email, password, is_staff = false, image = "") => {
     const formData = new FormData();
     formData.append("username", username);
     formData.append("email", email);
     formData.append("password", password);
     formData.append("is_staff", is_staff);
-    formData.append("image", image); // Phải là file, không phải chuỗi
+
+    // Chỉ thêm image vào formData nếu có giá trị
+    if (image) {
+        formData.append("image", image);
+    }
 
     return axios.post("api/users/register", formData, {
         headers: { "Content-Type": "multipart/form-data" }

@@ -18,10 +18,10 @@ const ManageProduct = () => {
     const [dataUpdate, setDataUpdate] = useState({});
     const [dataDelete, setDataDelete] = useState({});
     const [listProducts, setListProducts] = useState([]);
-    
+
     // Thêm state cho phân trang
     const [currentPage, setCurrentPage] = useState(1);
-    const [productsPerPage] = useState(6);
+    const [productsPerPage] = useState(3);
 
     useEffect(() => {
         fetchListProducts();
@@ -70,8 +70,8 @@ const ManageProduct = () => {
     let paginationItems = [];
     for (let number = 1; number <= totalPages; number++) {
         paginationItems.push(
-            <Pagination.Item 
-                key={number} 
+            <Pagination.Item
+                key={number}
                 active={number === currentPage}
                 onClick={() => handlePageChange(number)}
             >
@@ -103,20 +103,20 @@ const ManageProduct = () => {
                     />
                     <div className="d-flex justify-content-center mt-3">
                         <Pagination>
-                            <Pagination.First 
-                                onClick={() => setCurrentPage(1)} 
+                            <Pagination.First
+                                onClick={() => setCurrentPage(1)}
                                 disabled={currentPage === 1}
                             />
-                            <Pagination.Prev 
+                            <Pagination.Prev
                                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                                 disabled={currentPage === 1}
                             />
                             {paginationItems}
-                            <Pagination.Next 
+                            <Pagination.Next
                                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                                 disabled={currentPage === totalPages}
                             />
-                            <Pagination.Last 
+                            <Pagination.Last
                                 onClick={() => setCurrentPage(totalPages)}
                                 disabled={currentPage === totalPages}
                             />

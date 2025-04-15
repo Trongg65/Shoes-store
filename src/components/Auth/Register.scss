@@ -1,4 +1,20 @@
 .register-container {
+    .loader-icon {
+        margin-right: 7px;
+        top         : 2px;
+        animation   : spin 1s infinite linear;
+    }
+
+    @keyframes spin {
+        from {
+            transform: scale(1) rotate(0deg);
+        }
+
+        to {
+            transform: scale(1) rotate(360deg);
+        }
+    }
+
     .header {
         height         : 45px;
         text-align     : right;
@@ -50,6 +66,15 @@
             border-radius   : 5px;
             background-color: #262627;
             color           : white;
+            display         : flex;
+            align-items     : center;
+            justify-content : center;
+
+            &:disabled {
+                background-color: #dddddd;
+                color           : #afafaf;
+                cursor          : no-drop;
+            }
         }
 
         .back {
@@ -65,4 +90,14 @@
         }
 
     }
+}
+
+/* Tùy chỉnh thanh progress */
+#nprogress .bar {
+    background: #2998ff !important;
+    height    : 3px !important;
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px #2998ff, 0 0 5px #2998ff !important;
 }

@@ -3,27 +3,63 @@ import './Register.scss'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { ImSpinner2 } from "react-icons/im";
 import { postRegister } from '../../services/apiServices';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+
+// Cấu hình NProgress
+NProgress.configure({
+    showSpinner: false,
+    trickleSpeed: 100,
+    easing: 'ease',
+    speed: 500
+});
 
 const Register = (props) => {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [hideShowPassword, setHideShowPassword] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const navigate = useNavigate()
 
-
     const handleRegister = async () => {
-        //validate
-
-        // submit apis
-        let res = await postRegister(username, email, password);
-        if (res && res.EC === 0) {
-            toast.success(res.EM);
-            navigate('/login')
+        // Validate
+        if (!username) {
+            toast.error('Please enter username');
+            return;
         }
-        if (res && +res.EC !== 0) {
-            toast.error(res.EM);
+        if (!email) {
+            toast.error('Please enter email');
+            return;
+        }
+        if (!password) {
+            toast.error('Please enter password');
+            return;
+        }
+
+        // Set default values
+        const is_staff = false;
+        const image = "";
+
+        setIsLoading(true);
+        NProgress.start();
+        try {
+            // Submit to API
+            let res = await postRegister(username, email, password, is_staff, image);
+            if (res && res.EC === 0) {
+                toast.success(res.EM);
+                navigate('/login')
+            }
+            if (res && +res.EC !== 0) {
+                toast.error(res.EM);
+            }
+        } catch (error) {
+            toast.error('An error occurred during registration');
+        } finally {
+            setIsLoading(false);
+            NProgress.done();
         }
     }
 
@@ -33,9 +69,7 @@ const Register = (props) => {
     return (
         <div className="register-container">
             <div className='header'>
-                <span>Already have an account?
-
-                </span>
+                <span>Already have an account?</span>
                 <button onClick={() => navigate('/login')}>Log in</button>
             </div>
             <div className='title col-md-4 mx-auto'>
@@ -75,7 +109,6 @@ const Register = (props) => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-
                         <div className='eye-password-register' onClick={() => handleHideShowPassword()}>
                             {hideShowPassword === false ? <FaRegEye className='' /> : <FaRegEyeSlash />}
                         </div>
@@ -85,7 +118,11 @@ const Register = (props) => {
                     <button
                         className='btn-submit'
                         onClick={() => handleRegister()}
-                    >Create my free account</button>
+                        disabled={isLoading}
+                    >
+                        {isLoading && <ImSpinner2 className="loader-icon" />}
+                        Create my free account
+                    </button>
                 </div>
                 <div className='text-center'>
                     <span className='back' onClick={() => navigate('/')}>&#60;&#60; Go to Homepage</span>

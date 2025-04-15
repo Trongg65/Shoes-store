@@ -7,6 +7,16 @@ import { ImSpinner2 } from "react-icons/im";
 import { postLogin } from '../../services/apiServices';
 import { useDispatch } from 'react-redux';
 import { doLogin } from '../../redux/slices/authSlice';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+
+// Cấu hình NProgress
+NProgress.configure({
+    showSpinner: false,
+    trickleSpeed: 100,
+    easing: 'ease',
+    speed: 500
+});
 
 const Login = (props) => {
     const [username, setUsername] = useState('')
@@ -16,8 +26,6 @@ const Login = (props) => {
     const [isLoading, setIsLoading] = useState(false)
     const dispatch = useDispatch();
 
-
-
     // const validateEmail = (username) => {
     //     return String(username)
     //         .toLowerCase()
@@ -26,20 +34,33 @@ const Login = (props) => {
     //         );
     // };
     const handleLogin = async () => {
-
-
-        //submit apis
-        let res = await postLogin(username, password);
-        if (res && res.EC === 0) {
-            // dispatch(doLogin(res))
-            dispatch(doLogin(res));
-            toast.success(res.EM);
-            // setIsLoading(false)
-            navigate('/')
+        if (!username) {
+            toast.error('Please enter username');
+            return;
         }
-        if (res && +res.EC !== 0) {
-            toast.error(res.EM);
-            // setIsLoading(false)
+        if (!password) {
+            toast.error('Please enter password');
+            return;
+        }
+
+        setIsLoading(true);
+        NProgress.start();
+        try {
+            //submit apis
+            let res = await postLogin(username, password);
+            if (res && res.EC === 0) {
+                dispatch(doLogin(res));
+                toast.success(res.EM);
+                navigate('/')
+            }
+            if (res && +res.EC !== 0) {
+                toast.error(res.EM);
+            }
+        } catch (error) {
+            toast.error('An error occurred during login');
+        } finally {
+            setIsLoading(false);
+            NProgress.done();
         }
     }
 
@@ -64,7 +85,7 @@ const Login = (props) => {
                 EMT
             </div>
             <div className='welcome col-md-4 mx-auto'>
-                Hello, who’s this?
+                Hello, who's this?
             </div>
             <div className='form-content col-md-4 mx-auto'>
                 <div className='form-group'>

@@ -7,14 +7,9 @@ import ModalUpdateUser from "./ModalUpdateUser";
 import TableUser from "./TableUser";
 import ModalDeleteUser from "./ModalDeleteUser";
 import ModalViewUser from "./ModalViewUser";
-
+import Pagination from 'react-bootstrap/Pagination';
 
 const ManageUser = (props) => {
-
-    // const LIMIT_USER = 3;
-    // const [pageCount, setPageCount] = useState(0)
-    // const [currentPage, setCurrentPage] = useState(1)
-
     const [showModalCreateUser, setShowModalCreateUser] = useState(false);
     const [showModalUpdateUser, setShowModalUpdateUser] = useState(false);
     const [showModalViewUser, setShowViewUpdateUser] = useState(false);
@@ -26,6 +21,9 @@ const ManageUser = (props) => {
 
     const [listUsers, setListUsers] = useState([])
 
+    // Add pagination states
+    const [currentPage, setCurrentPage] = useState(1);
+    const [usersPerPage] = useState(8);
 
     useEffect(() => {
         fetchListUsers();
@@ -53,7 +51,29 @@ const ManageUser = (props) => {
     const resetUpdateData = () => {
         setDataUpdate({});
     }
-    console.log(dataUpdate)
+
+    // Calculate pagination
+    const indexOfLastUser = currentPage * usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - usersPerPage;
+    const currentUsers = listUsers.slice(indexOfFirstUser, indexOfLastUser);
+
+    // Calculate total pages
+    const totalPages = Math.ceil(listUsers.length / usersPerPage);
+
+    // Create pagination items
+    let paginationItems = [];
+    for (let number = 1; number <= totalPages; number++) {
+        paginationItems.push(
+            <Pagination.Item
+                key={number}
+                active={number === currentPage}
+                onClick={() => setCurrentPage(number)}
+            >
+                {number}
+            </Pagination.Item>
+        );
+    }
+
     return (
         <div className="manage-user-container">
             <div className="title">
@@ -64,13 +84,33 @@ const ManageUser = (props) => {
                     <button className="btn btn-primary" onClick={() => setShowModalCreateUser(true)}><FcPlus />Add new user</button>
                 </div>
                 <div className="table-users-container">
-
                     <TableUser
-                        listUsers={listUsers}
+                        listUsers={currentUsers}
                         handleClickBtnDelete={handleClickBtnDelete}
                         handleClickBtnUpdate={handleClickBtnUpdate}
                         handleClickBtnView={handleClickBtnView}
                     />
+                    <div className="d-flex justify-content-center mt-3">
+                        <Pagination>
+                            <Pagination.First
+                                onClick={() => setCurrentPage(1)}
+                                disabled={currentPage === 1}
+                            />
+                            <Pagination.Prev
+                                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                                disabled={currentPage === 1}
+                            />
+                            {paginationItems}
+                            <Pagination.Next
+                                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                                disabled={currentPage === totalPages}
+                            />
+                            <Pagination.Last
+                                onClick={() => setCurrentPage(totalPages)}
+                                disabled={currentPage === totalPages}
+                            />
+                        </Pagination>
+                    </div>
                 </div>
                 <ModalCreateUser
                     show={showModalCreateUser}
@@ -97,7 +137,6 @@ const ManageUser = (props) => {
                     fetchListUsers={fetchListUsers}
                     resetUpdateData={resetUpdateData}
                 />
-
             </div>
         </div>
     )
