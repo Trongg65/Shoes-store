@@ -1,110 +1,174 @@
-import './Header.css';
+import './Header.scss';
 import SearchBar from "./SearchBar";
 import { SearchResultsList } from './SearchResultsList'
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { IoIosLogOut } from "react-icons/io";
+import { FaHome, FaUser, FaShoppingCart, FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa";
 import ModalLogout from "./ModalLogout";
-import CartIcon from "./CartIcon";
 
-function Header() {
+function Header({ onSearch }) {
     const { account, isAuthenticated } = useSelector(state => state.auth);
+    const { items } = useSelector(state => state.cart);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [results, setResults] = useState([]);
     const [isShowModalResult, setIsShowModalResult] = useState(false);
-    const [searchInput, setSearchInput] = useState("");
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    const handleSubmit = (event) => {
-        event.preventDefault(); // Ngăn không cho form reload
-        console.log('Tìm kiếm:', searchInput);
-    };
+    // Tính tổng số lượng sản phẩm trong giỏ hàng
+    const cartQuantity = items.reduce((total, item) => total + item.quantity, 0);
 
     const handleBackHome = () => {
-        navigate('/')
+        navigate('/');
+        setIsMobileMenuOpen(false);
     }
 
     const handleLogin = () => {
-        navigate('/login')
+        navigate('/login');
+        setIsMobileMenuOpen(false);
     }
+    
     const handleChangeAdmin = () => {
-        navigate('/admin')
+        navigate('/admin');
+        setIsMobileMenuOpen(false);
     }
 
     const handleLogout = () => {
-        setIsShowModalResult(true)
+        setIsShowModalResult(true);
+        setIsMobileMenuOpen(false);
     }
+
+    const handleCartClick = () => {
+        navigate('/cart');
+        setIsMobileMenuOpen(false);
+    }
+
+    const handleProfileClick = () => {
+        navigate('/profile');
+        setIsMobileMenuOpen(false);
+    }
+    
     return (
         <>
-            <header className="container p-2 d-flex">
-                <nav className="navbar navbar-expand-lg navbar-light" style={{ width: "100%" }}>
-                    <a className="navbar-brand d-none d-lg-block me-3" href="" onClick={() => handleBackHome()}>
-                        <img className="mx-4" style={{ width: '50px' }}
+            <header className="header">
+                <div className="header-container">
+                    <div className="header-left">
+                        <Link to="/" className="logo" onClick={handleBackHome}>
+                            <img 
                             src="https://clipartcraft.com/images/spiderman-clipart-logo-1.png"
-                            alt=""></img>
-                    </a>
-
-                    <button className="navbar-toggler mx-3 border-0 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
-
-                    <SearchBar setResults={setResults} />
-                    {results && results.length > 0 && <SearchResultsList results={results} />}
-
-                    <button className="button-color border-0 d-lg-none ">
-                        <svg
-                            className="text-white bi bi-cart"
-                            style={{ width: "40px", height: "30px" }}
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
-                        </svg>
-                    </button>
-
-                    <div className="header-icons d-lg-flex d-none">
-                        {account.is_staff ?
-                            <a className="home" onClick={() => handleChangeAdmin()}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" className="bi bi-house" viewBox="0 0 16 16">
-                                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
-                                </svg>
-                                Admin
-                            </a>
-                            :
-                            <a className="home">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" className="bi bi-house" viewBox="0 0 16 16">
-                                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
-                                </svg>
-                                Trang chủ
-                            </a>
-                        }
-                        {isAuthenticated ?
-                            <a className="account" >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-person" viewBox="0 0 16 16">
-                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
-                                </svg>
-                                <span >{account.username}</span>
-                                <IoIosLogOut className="icon-logout" onClick={() => handleLogout()} />
-                            </a>
-                            :
-                            <a className="account" onClick={() => handleLogin()}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-person" viewBox="0 0 16 16">
-                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
-                                </svg>
-                                Tài khoản
-                            </a>
-                        }
-                        <div className="cart border-0 border-start mx-5">
-                            <CartIcon />
+                                alt="SpiderSneaker Logo"
+                            />
+                            <span className="logo-text">SpiderSneaker</span>
+                        </Link>
+                    </div>
+                    
+                    <div className="header-center">
+                        <SearchBar setResults={setResults} onSearch={onSearch} />
+                        {results && results.length > 0 && <SearchResultsList results={results} />}
+                    </div>
+                    
+                    <div className="header-right">
+                        <div className="header-actions desktop-actions">
+                            <Link to="/" className="action-button">
+                                <FaHome className="action-icon" />
+                                <span className="action-text">Trang chủ</span>
+                            </Link>
+                            
+                            {isAuthenticated ? (
+                                <>
+                                    <Link to="/profile" className="action-button">
+                                        <FaUser className="action-icon" />
+                                        <span className="action-text">{account.username}</span>
+                                    </Link>
+                                    <button className="logout-button" onClick={handleLogout}>
+                                        <FaSignOutAlt className="logout-icon" />
+                                    </button>
+                                </>
+                            ) : (
+                                <Link to="/login" className="action-button">
+                                    <FaUser className="action-icon" />
+                                    <span className="action-text">Tài khoản</span>
+                                </Link>
+                            )}
+                            
+                            <Link to="/cart" className="action-button">
+                                <div className="cart-container">
+                                    <FaShoppingCart className="action-icon" />
+                                    <span className="action-text">Giỏ hàng</span>
+                                    {cartQuantity > 0 && (
+                                        <span className="cart-badge">{cartQuantity}</span>
+                                    )}
+                                </div>
+                            </Link>
                         </div>
                     </div>
-                </nav>
+                    
+                    <button 
+                        className="mobile-menu-button" 
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    >
+                        {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+                    </button>
+                </div>
+
+                <div className="mobile-search">
+                    <SearchBar setResults={setResults} onSearch={onSearch} />
+                    {results && results.length > 0 && <SearchResultsList results={results} />}
+                </div>
+
+                {isMobileMenuOpen && (
+                    <div className="mobile-menu">
+                        <div className="mobile-menu-items">
+                            {account.is_staff ? (
+                                <button className="menu-item" onClick={handleChangeAdmin}>
+                                    <FaHome className="menu-icon" />
+                                    <span>Admin</span>
+                                </button>
+                            ) : (
+                                <button className="menu-item" onClick={handleBackHome}>
+                                    <FaHome className="menu-icon" />
+                                    <span>Trang chủ</span>
+                                </button>
+                            )}
+                            
+                            {isAuthenticated ? (
+                                <>
+                                    <button className="menu-item" onClick={handleProfileClick}>
+                                        <FaUser className="menu-icon" />
+                                        <span>{account.username}</span>
+                                    </button>
+                                    <button className="menu-item logout" onClick={handleLogout}>
+                                        <FaSignOutAlt className="menu-icon" />
+                                        <span>Đăng xuất</span>
+                                    </button>
+                                </>
+                            ) : (
+                                <button className="menu-item" onClick={handleLogin}>
+                                    <FaUser className="menu-icon" />
+                                    <span>Tài khoản</span>
+                    </button>
+                            )}
+                            
+                            <button className="menu-item" onClick={handleCartClick}>
+                                <div className="cart-container">
+                                    <FaShoppingCart className="menu-icon" />
+                                    <span>Giỏ hàng</span>
+                                    {cartQuantity > 0 && (
+                                        <span className="cart-badge">{cartQuantity}</span>
+                                    )}
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                )}
             </header>
             <ModalLogout
                 show={isShowModalResult}
                 setShow={setIsShowModalResult}
             />
         </>
-
     );
 }
-export default Header
+
+export default Header;

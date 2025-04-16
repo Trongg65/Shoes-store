@@ -1,0 +1,174 @@
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+.search-bar {
+    position: relative;
+    width: 100%;
+    transition: all 0.3s ease;
+
+    input {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        padding-right: 3rem;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background-color: #f8f9fa;
+
+        &:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+            background-color: #fff;
+        }
+
+        &::placeholder {
+            color: #adb5bd;
+        }
+
+        &.loading {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23007bff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='12' y1='2' x2='12' y2='6'%3E%3C/line%3E%3Cline x1='12' y1='18' x2='12' y2='22'%3E%3C/line%3E%3Cline x1='4.93' y1='4.93' x2='7.76' y2='7.76'%3E%3C/line%3E%3Cline x1='16.24' y1='16.24' x2='19.07' y2='19.07'%3E%3C/line%3E%3Cline x1='2' y1='12' x2='6' y2='12'%3E%3C/line%3E%3Cline x1='18' y1='12' x2='22' y2='12'%3E%3C/line%3E%3Cline x1='4.93' y1='19.07' x2='7.76' y2='16.24'%3E%3C/line%3E%3Cline x1='16.24' y1='7.76' x2='19.07' y2='4.93'%3E%3C/line%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1.2rem;
+            padding-right: 3rem;
+        }
+    }
+
+    .search-button {
+        position: absolute;
+        right: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        padding: 0.5rem;
+        color: #6c757d;
+        cursor: pointer;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: #007bff;
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        svg {
+            font-size: 1.2rem;
+        }
+    }
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 0.5rem;
+    max-height: 400px;
+    overflow-y: auto;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+
+    &.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .search-result-item {
+        padding: 1rem;
+        border-bottom: 1px solid #e9ecef;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background-color: #f8f9fa;
+        }
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        .result-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            .result-image {
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+
+            .result-details {
+                flex: 1;
+
+                h4 {
+                    margin: 0;
+                    font-size: 0.9rem;
+                    color: #212529;
+                }
+
+                .result-price {
+                    margin: 0.25rem 0 0;
+                    font-size: 0.8rem;
+                    color: #dc3545;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    .search-loading {
+        padding: 1rem;
+        text-align: center;
+        color: #6c757d;
+
+        .spinner {
+            display: inline-block;
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    }
+
+    .no-results {
+        padding: 1rem;
+        text-align: center;
+        color: #6c757d;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-bar {
+        input {
+            padding: 0.6rem 1rem;
+            font-size: 0.9rem;
+        }
+    }
+
+    .search-results {
+        max-height: 300px;
+    }
+} 

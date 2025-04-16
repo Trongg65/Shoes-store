@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
-import { FaArrowLeft } from 'react-icons/fa';
+import { FaArrowLeft, FaShoppingBag } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CheckoutPage = () => {
   const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart.items);
   const [showQR, setShowQR] = useState(false);
+  const [orderSuccess, setOrderSuccess] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
@@ -63,8 +66,41 @@ const CheckoutPage = () => {
     } else {
       // Xử lý đặt hàng COD
       console.log('Đặt hàng thành công:', formData);
+      setOrderSuccess(true);
+      toast.success('Đặt hàng thành công! Cảm ơn bạn đã mua hàng.');
     }
   };
+
+  const handleReturnToShopping = () => {
+    navigate('/');
+  };
+
+  if (orderSuccess) {
+    return (
+      <div className="min-h-screen bg-gray-50 py-12">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="bg-white rounded-2xl shadow-sm p-8 text-center">
+            <div className="mb-6">
+              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <h2 className="text-3xl font-bold text-gray-800 mb-2">Đặt hàng thành công!</h2>
+              <p className="text-gray-600 mb-6">Cảm ơn bạn đã mua hàng. Chúng tôi sẽ xử lý đơn hàng của bạn sớm nhất có thể.</p>
+            </div>
+            <button
+              onClick={handleReturnToShopping}
+              className="bg-blue-500 text-white py-3 px-6 rounded-xl font-medium hover:bg-blue-600 transition-colors duration-300 flex items-center justify-center gap-2 mx-auto"
+            >
+              <FaShoppingBag />
+              <span>Tiếp tục mua sắm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">

@@ -1,102 +1,143 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from 'react';
+import { FaSearch } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import { getAllProducts } from "../../services/apiServices";
 import { toast } from 'react-toastify';
+import './SearchBar.scss';
 
-function SearchBar({ setResults }) {
-  const [input, setInput] = useState("");
-  const [isSearching, setIsSearching] = useState(false);
-  const navigate = useNavigate();
+const SearchBar = ({ setResults, onSearch }) => {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [showResults, setShowResults] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [searchResults, setSearchResults] = useState([]);
+    const [allProducts, setAllProducts] = useState([]);
+    const searchRef = useRef(null);
+    const navigate = useNavigate();
 
-  const handleSearch = async (searchTerm) => {
-    setIsSearching(true);
-    try {
-      const res = await getAllProducts();
-      if (res.EC === 0) {
-        const filteredResults = res.DT.filter((product) => 
-          product.name.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+    // Fetch all products once when component mounts
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const res = await getAllProducts();
+                if (res.EC === 0) {
+                    setAllProducts(res.DT);
+                }
+            } catch (error) {
+                console.error('Error fetching products:', error);
+            }
+        };
+        fetchProducts();
+    }, []);
 
-        if (filteredResults.length === 0) {
-          toast.info("Không tìm thấy sản phẩm phù hợp");
-          setResults([]);
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (searchRef.current && !searchRef.current.contains(event.target)) {
+                setShowResults(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    // Live search as user types
+    useEffect(() => {
+        if (searchTerm.trim()) {
+            const filteredResults = allProducts.filter((product) =>
+                product.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setSearchResults(filteredResults);
+            setShowResults(true);
         } else {
-          setResults(filteredResults);
+            setSearchResults([]);
+            setShowResults(false);
+            // Reset main menu results when search term is cleared
+            if (onSearch) {
+                onSearch('');
+            }
         }
-      }
-    } catch (error) {
-      toast.error("Có lỗi xảy ra khi tìm kiếm");
-      setResults([]);
-    } finally {
-      setIsSearching(false);
-    }
-  };
+    }, [searchTerm, allProducts, onSearch]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!input.trim()) {
-      toast.warning("Vui lòng nhập từ khóa tìm kiếm");
-      return;
-    }
-    handleSearch(input);
-  };
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        if (!searchTerm.trim()) {
+            toast.warning("Vui lòng nhập từ khóa tìm kiếm");
+            return;
+        }
 
-  const handleChange = (value) => {
-    setInput(value);
-    if (!value.trim()) {
-      setResults([]);
-    }
-  };
+        setIsLoading(true);
+        try {
+            // Filter products based on search term
+            const filteredResults = allProducts.filter((product) =>
+                product.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      handleSubmit(e);
-    }
+            if (filteredResults.length === 0) {
+                toast.info("Không tìm thấy sản phẩm phù hợp");
+            }
+
+            // Update main menu results
+            if (onSearch) {
+                onSearch(searchTerm);
+            }
+
+            setShowResults(false);
+            navigate('/'); // Navigate to home page to show filtered results
+        } catch (error) {
+            toast.error("Có lỗi xảy ra khi tìm kiếm");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleInputChange = (e) => {
+        const value = e.target.value;
+        setSearchTerm(value);
+    };
+
+    const handleResultClick = (result) => {
+        navigate(`/product/${result.id}`);
+        setShowResults(false);
+        setSearchTerm('');
+        setSearchResults([]);
   };
 
   return (
-    <div className="form-control mx-3 flex-grow-1" style={{ width: '60%' }}>
-      <form className="d-flex flex-grow-1" onSubmit={handleSubmit}>
-        <img
-          className="mx-2"
-          style={{ width: '30px', height: '30px' }}
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Search_Icon.svg/1024px-Search_Icon.svg.png"
-          alt="Search Icon"
-        />
-        {/* Large screen */}
-        <div className="input-group d-none d-lg-flex">
+        <div className="search-container" ref={searchRef}>
+            <form onSubmit={handleSearch} className="search-bar">
           <input
-            className="form-control border-0 border-end"
-            type="search"
-            placeholder="Tìm kiếm giày..."
-            aria-label="Search"
-            value={input}
-            onChange={(e) => handleChange(e.target.value)}
-            onKeyPress={handleKeyPress}
-          />
-          <button 
-            className="text-primary bg-white border-0 border-start" 
-            type="submit"
-            disabled={isSearching}
-          >
-            {isSearching ? 'Đang tìm...' : 'Tìm kiếm'}
+                    type="text"
+                    placeholder="Tìm kiếm sản phẩm..."
+                    value={searchTerm}
+                    onChange={handleInputChange}
+                    className={isLoading ? 'loading' : ''}
+                />
+                <button type="submit" className="search-button" disabled={isLoading}>
+                    <FaSearch />
           </button>
+            </form>
+
+            {showResults && searchResults.length > 0 && (
+                <div className={`search-results ${showResults ? 'show' : ''}`}>
+                    {searchResults.slice(0, 5).map((result) => (
+                        <div
+                            key={result.id}
+                            className="search-result-item"
+                            onClick={() => handleResultClick(result)}
+                        >
+                            <div className="result-content">
+                                <img src={result.image} alt={result.name} className="result-image" />
+                                <div className="result-details">
+                                    <h4>{result.name}</h4>
+                                    <p className="result-price">{result.price.toLocaleString('vi-VN')}đ</p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
         </div>
-        {/* Small screen */}
-        <div className="input-group d-flex d-lg-none">
-          <input
-            className="form-control border-0"
-            type="search"
-            placeholder="Tìm kiếm giày..."
-            aria-label="Search"
-            value={input}
-            onChange={(e) => handleChange(e.target.value)}
-            onKeyPress={handleKeyPress}
-          />
-        </div>
-      </form>
+            )}
     </div>
   );
-}
+};
 
 export default SearchBar;
