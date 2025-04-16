@@ -1,0 +1,464 @@
+// Profile Styles
+.profile-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 2rem auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin: 1rem;
+  }
+}
+
+// Sidebar Styles
+.profile-sidebar {
+  width: 280px;
+  background-color: #f8f9fa;
+  padding: 2rem 0;
+  border-right: 1px solid #e9ecef;
+  
+  @media (max-width: 768px) {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #e9ecef;
+    padding: 1rem;
+  }
+}
+
+.profile-avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+  
+  .avatar-circle {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #343a40;
+  }
+}
+
+.profile-menu {
+  display: flex;
+  flex-direction: column;
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    background: none;
+    color: #495057;
+    font-size: 1rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    svg {
+      margin-right: 0.8rem;
+      font-size: 1.1rem;
+    }
+    
+    &:hover {
+      background-color: #e9ecef;
+      color: #007bff;
+    }
+    
+    &.active {
+      background-color: #e7f1ff;
+      color: #007bff;
+      font-weight: 600;
+      border-left: 3px solid #007bff;
+    }
+    
+    &.logout {
+      margin-top: auto;
+      color: #dc3545;
+      
+      &:hover {
+        background-color: #fff5f5;
+      }
+    }
+  }
+}
+
+// Content Styles
+.profile-content {
+  flex: 1;
+  padding: 2rem;
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+  }
+}
+
+.profile-section {
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #343a40;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  
+  h2 {
+    margin-bottom: 0;
+  }
+  
+  .edit-button, .save-button, .cancel-button {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    svg {
+      margin-right: 0.5rem;
+    }
+  }
+  
+  .edit-button {
+    background-color: #e7f1ff;
+    color: #007bff;
+    border: 1px solid #cce5ff;
+    
+    &:hover {
+      background-color: #d0e3ff;
+    }
+  }
+  
+  .edit-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .save-button {
+    background-color: #28a745;
+    color: white;
+    border: 1px solid #28a745;
+    
+    &:hover {
+      background-color: #218838;
+    }
+  }
+  
+  .cancel-button {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    border: 1px solid #dee2e6;
+    
+    &:hover {
+      background-color: #e9ecef;
+    }
+  }
+}
+
+// Form Styles
+.profile-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    
+    label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #495057;
+      margin-bottom: 0.5rem;
+    }
+    
+    input, textarea {
+      padding: 0.75rem;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      font-size: 1rem;
+      transition: border-color 0.15s ease-in-out;
+      
+      &:focus {
+        border-color: #80bdff;
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+      }
+      
+      &:disabled {
+        background-color: #e9ecef;
+        cursor: not-allowed;
+      }
+    }
+    
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    
+    p {
+      padding: 0.75rem;
+      background-color: #f8f9fa;
+      border-radius: 4px;
+      margin: 0;
+      color: #495057;
+    }
+  }
+}
+
+// Orders Styles
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.order-card {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    
+    .order-info {
+      h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0;
+        color: #343a40;
+      }
+      
+      .order-date {
+        font-size: 0.9rem;
+        color: #6c757d;
+        margin: 0.25rem 0 0;
+      }
+    }
+    
+    .status-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      
+      &.delivered {
+        background-color: #d4edda;
+        color: #155724;
+      }
+      
+      &.processing {
+        background-color: #fff3cd;
+        color: #856404;
+      }
+      
+      &.cancelled {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+    }
+  }
+  
+  .order-items {
+    padding: 1rem;
+    
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid #f1f3f5;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+      
+      .item-details {
+        h4 {
+          font-size: 1rem;
+          font-weight: 600;
+          margin: 0;
+          color: #343a40;
+        }
+        
+        p {
+          font-size: 0.9rem;
+          color: #6c757d;
+          margin: 0.25rem 0 0;
+        }
+      }
+      
+      .item-price {
+        font-weight: 600;
+        color: #343a40;
+      }
+    }
+  }
+  
+  .order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    
+    .order-total {
+      font-size: 1rem;
+      color: #495057;
+      
+      .total-amount {
+        font-weight: 700;
+        color: #343a40;
+        margin-left: 0.5rem;
+      }
+    }
+    
+    .view-details-button {
+      padding: 0.5rem 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      
+      &:hover {
+        background-color: #0069d9;
+      }
+    }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  
+  p {
+    font-size: 1.1rem;
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+  }
+  
+  .shop-button {
+    padding: 0.75rem 1.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: #0069d9;
+    }
+  }
+}
+
+// Settings Styles
+.settings-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+  
+  .setting-item {
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #343a40;
+      margin-bottom: 0.5rem;
+    }
+    
+    p {
+      font-size: 0.9rem;
+      color: #6c757d;
+      margin-bottom: 1rem;
+    }
+    
+    .action-button {
+      padding: 0.5rem 1rem;
+      background-color: #e7f1ff;
+      color: #007bff;
+      border: 1px solid #cce5ff;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background-color: #d0e3ff;
+      }
+    }
+    
+    &.danger-zone {
+      background-color: #fff5f5;
+      border-color: #f8d7da;
+      
+      h3 {
+        color: #dc3545;
+      }
+      
+      .delete-button {
+        padding: 0.5rem 1rem;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+        
+        &:hover {
+          background-color: #c82333;
+        }
+      }
+    }
+  }
+} 

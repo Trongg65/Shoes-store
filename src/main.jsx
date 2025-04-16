@@ -19,6 +19,8 @@ import CartPage from './components/Cart/CartPage'
 import CheckoutPage from './components/Checkout/CheckoutPage'
 import ManageProduct from './components/Admin/Content/Product/ManageProduct'
 import DashBoard from './components/Admin/Content/Dashboard'
+import Profile from './components/Profile/Profile'
+import ProfileAdmin from './components/Profile/ProfileAdmin'
 
 const router = createBrowserRouter([
   {
@@ -36,6 +38,14 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />
+  },
+  {
+    path: "/profile",
+    element: <Profile />
+  },
+  {
+    path: "/profile/admin",
+    element: <ProfileAdmin />
   },
   {
     path: "/admin",

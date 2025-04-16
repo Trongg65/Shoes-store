@@ -143,7 +143,7 @@ const MainMenu = () => {
               />
               <div className="carousel-caption d-none d-md-block">
                 <h2>Special Offers</h2>
-                <p>Get up to 50% off on selected items</p>
+                <p>Get up to 30% off on selected items</p>
               </div>
             </div>
             <div className="carousel-item" data-bs-interval="5000">

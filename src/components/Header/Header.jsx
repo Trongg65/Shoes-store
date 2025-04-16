@@ -77,7 +77,7 @@ function Header({ onSearch }) {
                             
                             {isAuthenticated ? (
                                 <>
-                                    <Link to="/profile" className="action-button">
+                                    <Link to={account.is_staff ? "/profile/admin" : "/profile"} className="action-button">
                                         <FaUser className="action-icon" />
                                         <span className="action-text">{account.username}</span>
                                     </Link>
