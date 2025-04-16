@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, updateQuantity } from '../../redux/slices/cartSlice';
-import { Link } from 'react-router-dom';
-import { FaTrash, FaMinus, FaPlus, FaShoppingBag } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaTrash, FaMinus, FaPlus, FaShoppingBag, FaHome } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { QRCodeSVG } from 'qrcode.react';
 
 const CartPage = () => {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
-  const [showQR, setShowQR] = useState(false);
+  const navigate = useNavigate();
+  const [showQR, setShowQR] = React.useState(false);
 
   const handleRemoveFromCart = (productId, size) => {
     dispatch(removeFromCart({ productId, size }));
@@ -68,7 +69,14 @@ const CartPage = () => {
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="container mx-auto px-4 max-w-6xl">
-        <h2 className="text-3xl font-bold text-gray-800 mb-8">Giỏ hàng của bạn</h2>
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-3xl font-bold text-gray-800">Giỏ hàng của bạn</h2>
+          <Link to="/" className="flex items-center gap-2 text-gray-600 hover:text-gray-800">
+            <FaHome size={20} />
+            <span>Trang chủ</span>
+          </Link>
+        </div>
+        
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm p-6">
             {cartItems.map((item) => (
@@ -127,7 +135,7 @@ const CartPage = () => {
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Phí vận chuyển</span>
-                  <span className="text-green-500 font-medium">Miễn phí</span>
+                  <span className="text-green-500 font-medium">Chưa tính</span>
                 </div>
                 <div className="border-t border-gray-100 pt-4 mt-4">
                   <div className="flex justify-between items-center">
@@ -137,10 +145,10 @@ const CartPage = () => {
                 </div>
               </div>
               <button 
-                onClick={() => setShowQR(true)}
+                onClick={() => navigate('/checkout')}
                 className="w-full bg-red-500 text-white py-4 rounded-xl mt-8 font-medium hover:bg-red-600 transition-colors duration-300"
               >
-                Thanh toán ngay
+                Mua hàng
               </button>
             </div>
           </div>

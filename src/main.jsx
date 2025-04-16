@@ -5,7 +5,7 @@ import './index.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import ProductDetail from './components/PageDetails/ProductDetail'
-import Login from './Components/Auth/Login'
+import Login from './components/Auth/Login'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Register from './components/Auth/Register'
@@ -15,6 +15,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import Admin from './components/Admin/Admin'
 import ManageUser from './components/Admin/Content/ManageUser'
 import CartPage from './components/Cart/CartPage'
+import CheckoutPage from './components/Checkout/CheckoutPage'
 import ManageProduct from './components/Admin/Content/Product/ManageProduct'
 import DashBoard from './components/Admin/Content/Dashboard'
 
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
   {
     path: "/cart",
     element: <CartPage />
+  },
+  {
+    path: "/checkout",
+    element: <CheckoutPage />
   }
 ])
 

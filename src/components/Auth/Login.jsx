@@ -2,13 +2,14 @@ import { useState } from 'react'
 import './Login.scss'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { FaRegEye, FaRegEyeSlash, FaUser, FaLock } from "react-icons/fa";
 import { ImSpinner2 } from "react-icons/im";
 import { postLogin } from '../../services/apiServices';
 import { useDispatch } from 'react-redux';
 import { doLogin } from '../../redux/slices/authSlice';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import Logo from '../../assets/Poster1.png'; // Thêm logo của bạn vào đây
 
 // Cấu hình NProgress
 NProgress.configure({
@@ -18,7 +19,7 @@ NProgress.configure({
     speed: 500
 });
 
-const Login = (props) => {
+const Login = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [hideShowPassword, setHideShowPassword] = useState(false)
@@ -75,63 +76,79 @@ const Login = (props) => {
             handleLogin()
         }
     }
+
     return (
         <div className="login-container">
-            <div className='header'>
-                <span>Don't have an account yet?</span>
-                <button onClick={() => navigate('/register')}>Sign up</button>
-            </div>
-            <div className='title col-md-4 mx-auto'>
-                EMT
-            </div>
-            <div className='welcome col-md-4 mx-auto'>
-                Hello, who's this?
-            </div>
-            <div className='form-content col-md-4 mx-auto'>
-                <div className='form-group'>
-                    <label>Email</label>
-                    <input
-                        type='username'
-                        className='form-control'
-                        placeholder='bruce@wayne.com'
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
+            <div className="login-box">
+                <div className='login-header'>
+                    <img src={Logo} alt="Logo" className="login-logo" />
+                    <h2>Welcome Back!</h2>
+                    <p>Please sign in to continue</p>
                 </div>
-                <div className='form-group'>
-                    <label>Password</label>
-                    <form>
-                        <input
-                            type={hideShowPassword === false ? 'password' : 'text'}
-                            className='form-control'
-                            placeholder='At least 8 characters'
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            onKeyDown={(e) => handleKeyDown(e)}
-                        />
-                        <div className='eye-password-login' onClick={() => handleHideShowPassword()}>
-                            {hideShowPassword === false ? <FaRegEye className='' /> : <FaRegEyeSlash />}
-                        </div>
-                        <span className='forgot-password'>Forgot password?</span>
 
-                    </form>
-                </div>
-                <div>
+                <div className='login-form'>
+                    <div className='form-group'>
+                        <div className="input-group">
+                            <span className="input-icon">
+                                <FaUser />
+                            </span>
+                            <input
+                                type='text'
+                                className='form-control'
+                                placeholder='Username'
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                            />
+                        </div>
+                    </div>
+
+                    <div className='form-group'>
+                        <div className="input-group">
+                            <span className="input-icon">
+                                <FaLock />
+                            </span>
+                            <input
+                                type={hideShowPassword ? 'text' : 'password'}
+                                className='form-control'
+                                placeholder='Password'
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                            />
+                            <span 
+                                className='password-toggle'
+                                onClick={handleHideShowPassword}
+                            >
+                                {hideShowPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="form-options">
+                        <label className="remember-me">
+                            <input type="checkbox" /> Remember me
+                        </label>
+                        <span className="forgot-password">Forgot password?</span>
+                    </div>
+
                     <button
-                        className='btn-submit'
-                        onClick={() => handleLogin()}
+                        className='login-button'
+                        onClick={handleLogin}
                         disabled={isLoading}
                     >
-
-                        {
-                            isLoading === true &&
+                        {isLoading ? (
                             <ImSpinner2 className="loader-icon" />
-                        }
-                        Log in to EMT
+                        ) : 'Sign In'}
                     </button>
-                </div>
-                <div className='text-center'>
-                    <span className='back' onClick={() => navigate('/')}>&#60;&#60; Go to Homepage</span>
+
+                    <div className='register-link'>
+                        Don't have an account? 
+                        <span onClick={() => navigate('/register')}> Sign up</span>
+                    </div>
+
+                    <div className='back-link'>
+                        <span onClick={() => navigate('/')}>Back to Homepage</span>
+                    </div>
                 </div>
             </div>
         </div>

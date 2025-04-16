@@ -1,7 +1,42 @@
 .search-result {
   padding: 10px 20px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+.search-result:last-child {
+  border-bottom: none;
 }
 
 .search-result:hover {
-  background-color: #efefef;
+  background-color: #f8f9fa;
+}
+
+.search-result-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.search-result-image {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.search-result-info {
+  flex: 1;
+}
+
+.search-result-name {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.search-result-price {
+  font-size: 14px;
+  font-weight: 600;
+  color: #e53e3e;
 }

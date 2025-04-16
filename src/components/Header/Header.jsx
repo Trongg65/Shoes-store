@@ -99,13 +99,6 @@ function Header() {
                     </div>
                 </nav>
             </header>
-
-            <div className="container d-none d-lg-block">
-                <div className="d-flex">
-                    <p className="text-secondary">Trang chủ 〉</p>
-                    <p>Nhà sách Tiki</p>
-                </div>
-            </div>
             <ModalLogout
                 show={isShowModalResult}
                 setShow={setIsShowModalResult}

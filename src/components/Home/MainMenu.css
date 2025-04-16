@@ -69,6 +69,9 @@
   background-color: white; /* Nền trắng cho phần thân thẻ */
   color: rgb(0, 170, 255); /* Văn bản màu xanh dương */
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .card-text {
@@ -85,4 +88,63 @@
   color: rgb(46, 42, 238); /* Màu xanh dương cho giá sản phẩm */
   font-weight: bold; /* Đậm chữ */
   font-size: 20px !important; /* Kích thước chữ lớn hơn */
+  margin-bottom: 8px;
+}
+
+/* Star Rating Styles */
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.star-filled {
+  color: #ffd700;
+}
+
+.star-empty {
+  color: #e4e5e9;
+}
+
+.rating-text {
+  margin-left: 5px;
+  color: #666;
+  font-size: 0.9em;
+}
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  padding: 5px 10px;
+}
+
+/* Enhanced Filter Styles */
+.filter-bar {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.filter-bar p {
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 500;
+}
+
+.filter-bar .form-select {
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 8px 12px;
+  color: #333;
+  background-color: white;
+  transition: border-color 0.15s ease-in-out;
+}
+
+.filter-bar .form-select:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }

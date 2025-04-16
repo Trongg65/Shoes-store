@@ -1,103 +1,182 @@
 .register-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    
     .loader-icon {
         margin-right: 7px;
-        top         : 2px;
-        animation   : spin 1s infinite linear;
+        top: 2px;
+        animation: spin 1s infinite linear;
     }
 
     @keyframes spin {
         from {
             transform: scale(1) rotate(0deg);
         }
-
         to {
             transform: scale(1) rotate(360deg);
         }
     }
 
     .header {
-        height         : 45px;
-        text-align     : right;
-        padding        : 0 100px;
-        display        : flex;
+        height: 45px;
+        text-align: right;
+        padding: 0 100px;
+        display: flex;
         justify-content: flex-end;
-        align-items    : center;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 
         button {
-            padding         : 3px 15px;
-            margin-left     : 15px;
-            border-radius   : 5px;
-            background-color: #f9f9f9;
-            border          : 1px solid;
+            padding: 8px 20px;
+            margin-left: 15px;
+            border-radius: 20px;
+            background-color: #fff;
+            border: 1px solid #007bff;
+            color: #007bff;
+            transition: all 0.3s ease;
 
             &:hover {
-                background-color: white;
+                background-color: #007bff;
+                color: white;
+                transform: translateY(-1px);
             }
         }
     }
 
     .title {
-        font-size  : 25px;
-        padding    : 15px 0;
-        text-align : center;
-        font-weight: 600;
+        font-size: 32px;
+        padding: 25px 0 15px;
+        text-align: center;
+        font-weight: 700;
+        color: #2c3e50;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        animation: fadeIn 0.5s ease-out;
     }
 
     .welcome {
-        font-size : 20px;
-        padding   : 10px 0;
+        font-size: 18px;
+        padding: 0 0 30px;
         text-align: center;
+        color: #666;
+        animation: fadeIn 0.5s ease-out 0.2s backwards;
     }
 
     .form-content {
-        width         : 254px;
-        display       : flex;
-        flex-direction: column;
-        gap           : 15px;
+        width: 400px;
+        padding: 30px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        animation: slideUp 0.5s ease-out;
 
-        input {
-            margin-top: 6px;
+        .form-group {
+            margin-bottom: 20px;
+            
+            label {
+                font-weight: 500;
+                color: #34495e;
+                margin-bottom: 8px;
+            }
+
+            input {
+                margin-top: 6px;
+                border-radius: 8px;
+                border: 1px solid #ddd;
+                padding: 10px 15px;
+                transition: all 0.3s ease;
+
+                &:focus {
+                    border-color: #007bff;
+                    box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+                }
+
+                &.error {
+                    border-color: #dc3545;
+                }
+            }
         }
 
         button {
-            width           : 100%;
-            height          : 40px;
-            border          : none;
-            border-radius   : 5px;
-            background-color: #262627;
-            color           : white;
-            display         : flex;
-            align-items     : center;
-            justify-content : center;
+            width: 100%;
+            height: 45px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+
+            &:hover:not(:disabled) {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            }
 
             &:disabled {
-                background-color: #dddddd;
-                color           : #afafaf;
-                cursor          : no-drop;
+                background: #ccc;
+                cursor: not-allowed;
             }
         }
 
         .back {
-            cursor         : pointer;
-            text-decoration: underline;
+            margin-top: 20px;
+            cursor: pointer;
+            color: #007bff;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+
+            &:hover {
+                color: #0056b3;
+                transform: translateX(-3px);
+            }
         }
 
         .eye-password-register {
-            position: relative;
-            bottom  : 28px;
-            left    : 225px;
-            cursor  : pointer;
-        }
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
 
+            &:hover {
+                color: #333;
+            }
+        }
     }
 }
 
-/* Tùy chỉnh thanh progress */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Progress bar styling */
 #nprogress .bar {
-    background: #2998ff !important;
-    height    : 3px !important;
+    background: #007bff !important;
+    height: 3px !important;
 }
 
 #nprogress .peg {
-    box-shadow: 0 0 10px #2998ff, 0 0 5px #2998ff !important;
+    box-shadow: 0 0 10px #007bff, 0 0 5px #007bff !important;
 }
