@@ -81,6 +81,12 @@ function Header({ onSearch }) {
                                         <FaUser className="action-icon" />
                                         <span className="action-text">{account.username}</span>
                                     </Link>
+                                    {account.is_staff && (
+                                        <Link to="/admin" className="action-button">
+                                            <FaHome className="action-icon" />
+                                            <span className="action-text">Admin</span>
+                                        </Link>
+                                    )}
                                     <button className="logout-button" onClick={handleLogout}>
                                         <FaSignOutAlt className="logout-icon" />
                                     </button>
@@ -147,7 +153,7 @@ function Header({ onSearch }) {
                                 <button className="menu-item" onClick={handleLogin}>
                                     <FaUser className="menu-icon" />
                                     <span>Tài khoản</span>
-                    </button>
+                                </button>
                             )}
                             
                             <button className="menu-item" onClick={handleCartClick}>
