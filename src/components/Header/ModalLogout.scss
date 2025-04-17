@@ -2,9 +2,8 @@
     display: flex;
 
     .icon-warning {
-        color       : #fa4f3df0;
-        font-size   : 20px;
-        margin-right: 5px;
+        color    : #fa4f3df0;
+        font-size: 20px;
 
     }
 
@@ -22,4 +21,13 @@
 .btn-cancel-logout {
     background: #f4410e !important;
     border    : none !important;
+}
+
+.modal .modal-content {
+    background-color: white;
+    padding         : 5px !important;
+    border-radius   : 8px;
+    max-width       : 500px !important;
+    width           : 90%;
+    text-align      : center;
 }
